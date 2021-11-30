@@ -4,15 +4,23 @@ import 'package:flutter/material.dart';
 //The main point of app
 main() {
   //Run the app Question
-  runApp(const Question());
+  runApp(Question());
 }
 
 //Creating a stateless Widget(don't change)
-class Question extends StatelessWidget {
-  //Constructor
-  const Question({Key? key}) : super(key: key);
+class Question extends StatefulWidget {
+  @override
+  State<Question> createState() => _QuestionState();
+}
 
-  //overriding the method "build"
+class _QuestionState extends State<Question> {
+  var selectedQuestion = 0;
+
+  void answered() {
+    selectedQuestion++;
+    print(selectedQuestion);
+  }
+
   @override
   Widget build(BuildContext context) {
     //List to hava all the questions
@@ -37,17 +45,26 @@ class Question extends StatelessWidget {
             //Align the column on the center of container
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(questions.elementAt(0)),
+              Text(questions.elementAt(selectedQuestion)),
               Padding(
                 padding: const EdgeInsets.all(25),
                 child: Column(
                   children: [
                     ElevatedButton(
-                        onPressed: () {}, child: const Text("Answer 1")),
+                        onPressed: () {
+                          answered();
+                        },
+                        child: const Text("Answer 1")),
                     ElevatedButton(
-                        onPressed: () {}, child: const Text("Answer 2")),
+                        onPressed: () {
+                          answered();
+                        },
+                        child: const Text("Answer 2")),
                     ElevatedButton(
-                        onPressed: () {}, child: const Text("Answer 3")),
+                        onPressed: () {
+                          answered();
+                        },
+                        child: const Text("Answer 3")),
                   ],
                 ),
               )
