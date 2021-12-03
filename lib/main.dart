@@ -61,14 +61,21 @@ class _QuestionState extends State<Question> {
       },
     ];
 
+    List<String> textAnswers = questions[_selectedQuestion].cast()['answers'];
     //Creating a list for the widget QuestionBtn
-    List<Widget> answers = [];
+    //List<Widget> answersWidgets = [];
 
+    //using map
+    List<Widget> answersWidgets =
+        textAnswers.map((t) => QuestionBtn(t, _answered)).toList();
+
+    /*
     //Catching every answers from every questions
-    for (String textAnswers in questions[_selectedQuestion].cast()['answers']) {
-      //Adding the Widget QuestionBtn with every answer on the list answers
-      answers.add(QuestionBtn(textAnswers, _answered));
+    for (String textAnswers in textAnswers) {
+      //Adding the Widget QuestionBtn with every answer on the list answersWidgets
+      answersWidgets.add(QuestionBtn(textAnswers, _answered));
     }
+    */
 
     //Every widget which will not change need to use the key word "const"
     return MaterialApp(
@@ -91,7 +98,7 @@ class _QuestionState extends State<Question> {
                       .elementAt(_selectedQuestion)['question']
                       .toString()),
                   //using spread operator
-                  ...answers,
+                  ...answersWidgets,
                 ],
               )
             ],
