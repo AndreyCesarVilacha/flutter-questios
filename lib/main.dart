@@ -7,20 +7,24 @@ main() {
   runApp(Question());
 }
 
-//Creating a stateless Widget(don't change)
+//Creating a stateful Widget(manage the class _Question)
 class Question extends StatefulWidget {
   const Question({Key? key}) : super(key: key);
 
+  //Create a state to manage
   @override
   State<Question> createState() => _QuestionState();
 }
 
 class _QuestionState extends State<Question> {
+  //This var will controll wich question will be selected
   var selectedQuestion = 0;
 
   void answered() {
-    selectedQuestion++;
-    print(selectedQuestion);
+    //setState redraw your screen with the update
+    setState(() {
+      selectedQuestion++;
+    });
   }
 
   @override
