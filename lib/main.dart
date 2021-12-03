@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 import './question_text.dart';
 import './question_btn.dart';
 
+/*
+for (String textoResp in perguntas[_perguntaSelecionada].cast()['respostas']) {
+      respostas.add(Resposta(textoResp, _responder));
+    }
+*/
+
 //The main point of app
 main() {
   //Run the app Question
@@ -32,12 +38,37 @@ class _QuestionState extends State<Question> {
   @override
   Widget build(BuildContext context) {
     //List to hava all the questions
-    List<String> questions = [
-      'What is your favorite color',
-      'What is your favorite animal',
-      'What is your favorite pop star',
-      'What is your favorite Browser',
+    List<Map<String, dynamic>> questions = [
+      {
+        'question': 'What is your favorite color?',
+        'answers': ['Red', 'Black', 'Green', 'Blue'],
+      },
+      {
+        'question': 'What is your favorite animal?',
+        'answers': ['Dog', 'Cat', 'Racoon', 'Bird'],
+      },
+      {
+        'question': 'What is your favorite pop star?',
+        'answers': ['Shakira', 'Lady Gaga', 'Beyonce', 'Madonna'],
+      },
+      {
+        'question': 'What is your favorite Browser?',
+        'answers': ['Internet Explore', 'Googlo Chrome', 'Firefox', 'Safari'],
+      },
+      {
+        'question': 'What is your favorite dessert/candy?',
+        'answers': ['Cake', 'Lollipop', 'Ice cream', 'Safari'],
+      },
     ];
+
+    //Creating a list for the widget QuestionBtn
+    List<Widget> answers = [];
+
+    //Catching every answers from every questions
+    for (String textAnswers in questions[_selectedQuestion].cast()['answers']) {
+      //Adding the Widget QuestionBtn with every answer on the list answers
+      answers.add(QuestionBtn(textAnswers, _answered));
+    }
 
     //Every widget which will not change need to use the key word "const"
     return MaterialApp(
@@ -56,10 +87,11 @@ class _QuestionState extends State<Question> {
             children: [
               Column(
                 children: [
-                  QuestionText(questions.elementAt(_selectedQuestion)),
-                  QuestionBtn("Answer1", _answered),
-                  QuestionBtn("Answer2", _answered),
-                  QuestionBtn("Answer3", _answered),
+                  QuestionText(questions
+                      .elementAt(_selectedQuestion)['question']
+                      .toString()),
+                  //using spread operator
+                  ...answers,
                 ],
               )
             ],
