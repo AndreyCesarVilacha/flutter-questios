@@ -10,10 +10,16 @@ class QuestionBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 45,
-      margin: const EdgeInsets.fromLTRB(30, 5, 30, 10),
-      child:
-          ElevatedButton(onPressed: onSelected, child: Text(text.toString())),
+      height: 60,
+      margin: const EdgeInsets.fromLTRB(60, 20, 60, 20),
+      child: ElevatedButton(
+        onPressed: onSelected,
+        child: Text(
+          text.toString(),
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        ),
+        style: ElevatedButton.styleFrom(primary: Colors.deepOrange),
+      ),
     );
   }
 }

@@ -1,8 +1,9 @@
 //Importing the material.dart for using widgets
 import 'package:flutter/material.dart';
-import './question_text.dart';
+//import './question_text.dart';
 import './question_btn.dart';
 import './gameover.dart';
+import './quizz.dart';
 
 /*
 for (String textoResp in perguntas[_perguntaSelecionada].cast()['respostas']) {
@@ -71,14 +72,12 @@ class _QuestionState extends State<Question> {
         ? _questions[_selectedQuestion].cast()['answers']
         : [];
 
-    //Creating a list for the widget QuestionBtn
-    //List<Widget> answersWidgets = [];
-
     //using map
     List<Widget> answersWidgets =
         textAnswers.map((t) => QuestionBtn(t, _answered)).toList();
-
     /*
+    //Creating a list for the widget QuestionBtn
+    //List<Widget> answersWidgets = [];
     //Catching every answers from every questions
     for (String textAnswers in textAnswers) {
       //Adding the Widget QuestionBtn with every answer on the list answersWidgets
@@ -92,28 +91,14 @@ class _QuestionState extends State<Question> {
       //Scaffold it is a widget with some custom properties out of the box
       home: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.deepOrange,
           title: const Text("Questions"),
         ),
         body: haveQuestionSelected
-            ? Container(
-                //Align the container in the center of Scaffold
-                alignment: Alignment.center,
-                child: Column(
-                  //Align the column on the center of container
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Column(
-                      children: [
-                        QuestionText(_questions
-                            .elementAt(_selectedQuestion)['question']
-                            .toString()),
-                        //using spread operator
-                        ...answersWidgets,
-                      ],
-                    )
-                  ],
-                ),
-              )
+            ? Quizz(
+                questions: _questions,
+                widgetsList: answersWidgets,
+                selectedQuestion: _selectedQuestion)
             : const GameOver(),
       ),
     );
