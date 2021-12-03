@@ -1,10 +1,12 @@
 //Importing the material.dart for using widgets
 import 'package:flutter/material.dart';
+import './question_text.dart';
+import './question_btn.dart';
 
 //The main point of app
 main() {
   //Run the app Question
-  runApp(Question());
+  runApp(const Question());
 }
 
 //Creating a stateful Widget(manage the class _Question)
@@ -18,12 +20,12 @@ class Question extends StatefulWidget {
 
 class _QuestionState extends State<Question> {
   //This var will controll wich question will be selected
-  var selectedQuestion = 0;
+  var _selectedQuestion = 0;
 
-  void answered() {
+  void _answered() {
     //setState redraw your screen with the update
     setState(() {
-      selectedQuestion++;
+      _selectedQuestion++;
     });
   }
 
@@ -39,6 +41,7 @@ class _QuestionState extends State<Question> {
 
     //Every widget which will not change need to use the key word "const"
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       //Scaffold it is a widget with some custom properties out of the box
       home: Scaffold(
         appBar: AppBar(
@@ -51,28 +54,13 @@ class _QuestionState extends State<Question> {
             //Align the column on the center of container
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(questions.elementAt(selectedQuestion)),
-              Padding(
-                padding: const EdgeInsets.all(25),
-                child: Column(
-                  children: [
-                    ElevatedButton(
-                        onPressed: () {
-                          answered();
-                        },
-                        child: const Text("Answer 1")),
-                    ElevatedButton(
-                        onPressed: () {
-                          answered();
-                        },
-                        child: const Text("Answer 2")),
-                    ElevatedButton(
-                        onPressed: () {
-                          answered();
-                        },
-                        child: const Text("Answer 3")),
-                  ],
-                ),
+              Column(
+                children: [
+                  QuestionText(questions.elementAt(_selectedQuestion)),
+                  QuestionBtn("Answer1", _answered),
+                  QuestionBtn("Answer2", _answered),
+                  QuestionBtn("Answer3", _answered),
+                ],
               )
             ],
           ),
