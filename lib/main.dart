@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import './question_text.dart';
 import './question_btn.dart';
+import './gameover.dart';
 
 /*
 for (String textoResp in perguntas[_perguntaSelecionada].cast()['respostas']) {
@@ -27,41 +28,49 @@ class Question extends StatefulWidget {
 class _QuestionState extends State<Question> {
   //This var will controll wich question will be selected
   var _selectedQuestion = 0;
+  //List to hava all the questions
+  final List<Map<String, dynamic>> _questions = const [
+    {
+      'question': 'What is your favorite color?',
+      'answers': ['Red', 'Black', 'Green', 'Blue'],
+    },
+    {
+      'question': 'What is your favorite animal?',
+      'answers': ['Dog', 'Cat', 'Racoon', 'Bird'],
+    },
+    {
+      'question': 'What is your favorite pop star?',
+      'answers': ['Shakira', 'Lady Gaga', 'Beyonce', 'Madonna'],
+    },
+    {
+      'question': 'What is your favorite Browser?',
+      'answers': ['Internet Explore', 'Googlo Chrome', 'Firefox', 'Safari'],
+    },
+    {
+      'question': 'What is your favorite dessert/candy?',
+      'answers': ['Cake', 'Lollipop', 'Ice cream', 'Safari'],
+    },
+  ];
 
   void _answered() {
-    //setState redraw your screen with the update
-    setState(() {
-      _selectedQuestion++;
-    });
+    if (haveQuestionSelected) {
+      //setState redraw your screen with the update
+      setState(() {
+        _selectedQuestion++;
+      });
+    }
+  }
+
+  bool get haveQuestionSelected {
+    return _selectedQuestion < _questions.length;
   }
 
   @override
   Widget build(BuildContext context) {
-    //List to hava all the questions
-    List<Map<String, dynamic>> questions = [
-      {
-        'question': 'What is your favorite color?',
-        'answers': ['Red', 'Black', 'Green', 'Blue'],
-      },
-      {
-        'question': 'What is your favorite animal?',
-        'answers': ['Dog', 'Cat', 'Racoon', 'Bird'],
-      },
-      {
-        'question': 'What is your favorite pop star?',
-        'answers': ['Shakira', 'Lady Gaga', 'Beyonce', 'Madonna'],
-      },
-      {
-        'question': 'What is your favorite Browser?',
-        'answers': ['Internet Explore', 'Googlo Chrome', 'Firefox', 'Safari'],
-      },
-      {
-        'question': 'What is your favorite dessert/candy?',
-        'answers': ['Cake', 'Lollipop', 'Ice cream', 'Safari'],
-      },
-    ];
+    List<String> textAnswers = haveQuestionSelected
+        ? _questions[_selectedQuestion].cast()['answers']
+        : [];
 
-    List<String> textAnswers = questions[_selectedQuestion].cast()['answers'];
     //Creating a list for the widget QuestionBtn
     //List<Widget> answersWidgets = [];
 
@@ -85,25 +94,27 @@ class _QuestionState extends State<Question> {
         appBar: AppBar(
           title: const Text("Questions"),
         ),
-        body: Container(
-          //Align the container in the center of Scaffold
-          alignment: Alignment.center,
-          child: Column(
-            //Align the column on the center of container
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Column(
-                children: [
-                  QuestionText(questions
-                      .elementAt(_selectedQuestion)['question']
-                      .toString()),
-                  //using spread operator
-                  ...answersWidgets,
-                ],
+        body: haveQuestionSelected
+            ? Container(
+                //Align the container in the center of Scaffold
+                alignment: Alignment.center,
+                child: Column(
+                  //Align the column on the center of container
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Column(
+                      children: [
+                        QuestionText(_questions
+                            .elementAt(_selectedQuestion)['question']
+                            .toString()),
+                        //using spread operator
+                        ...answersWidgets,
+                      ],
+                    )
+                  ],
+                ),
               )
-            ],
-          ),
-        ),
+            : const GameOver(),
       ),
     );
   }
