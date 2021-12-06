@@ -6,7 +6,13 @@ class GameOver extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text("The End!"),
+      child: Text(
+        "The End!",
+        style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+            color: Colors.deepOrange),
+      ),
     );
   }
 }
