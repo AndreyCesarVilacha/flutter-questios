@@ -9,8 +9,10 @@ class QuestionBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      //Taking all available space
       width: double.infinity,
       height: 60,
+      //Using margin
       margin: const EdgeInsets.fromLTRB(60, 20, 60, 20),
       child: ElevatedButton(
         onPressed: onSelected,
