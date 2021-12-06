@@ -29,7 +29,7 @@ class Question extends StatefulWidget {
 class _QuestionState extends State<Question> {
   //This var will controll wich question will be selected
   var _selectedQuestion = 0;
-  //List to hava all the questions
+  //List to hava all the questions and answers
   final List<Map<String, dynamic>> _questions = const [
     {
       'question': 'What is your favorite color?',
@@ -88,6 +88,7 @@ class _QuestionState extends State<Question> {
     //Every widget which will not change need to use the key word "const"
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+
       //Scaffold it is a widget with some custom properties out of the box
       home: Scaffold(
         appBar: AppBar(
